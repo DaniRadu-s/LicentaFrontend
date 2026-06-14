@@ -55,7 +55,7 @@ type SignupPayload = {
 export default function Signup() {
     const navigate = useNavigate();
     const [step, setStep] = useState<1 | 2>(1);
-    const { mutateAsync: signupAsync, isPending } = useSignUp();
+    const { mutateAsync: signupAsync} = useSignUp();
 
     const form1 = useForm<Step1Values>({
         resolver: zodResolver(step1Schema),
