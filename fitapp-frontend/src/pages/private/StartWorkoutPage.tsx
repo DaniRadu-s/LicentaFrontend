@@ -300,7 +300,7 @@ export default function StartWorkoutPage() {
                                     </div>
                                     <div>
                                             <label className="text-xs text-white/70">
-                                                {entry.exerciseType?.toUpperCase() === "CARDIO" ? "Completed seconds" : "Completed reps"}
+                                                {entry.exerciseType?.toUpperCase() === "CARDIO" ? "Completed seconds" : "Completed sets"}
                                             </label>
                                         <input
                                             type="number"
