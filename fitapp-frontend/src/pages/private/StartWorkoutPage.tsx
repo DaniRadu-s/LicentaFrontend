@@ -280,7 +280,7 @@ export default function StartWorkoutPage() {
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                                     <div>
                                             <label className="text-xs text-white/70">
-                                                {entry.exerciseType?.toUpperCase() === "CARDIO" ? "Planned seconds" : "Planned reps"}
+                                                {entry.exerciseType?.toUpperCase() === "CARDIO" ? "Planned seconds" : "Planned sets"}
                                             </label>
                                         <input
                                             type="number"
