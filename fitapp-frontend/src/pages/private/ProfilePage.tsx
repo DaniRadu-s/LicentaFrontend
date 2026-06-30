@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useProfileStore } from "@/services/stores/useProfileStore";
 import { useLoadProfile, useSaveProfile } from "@/services/react-query/profile.ts";
 import type { RestrictionDTO, UserProfileDTO } from "@/api/api";
 import { useAuthStore } from "@/services/stores/useAuthStore.ts";
+import { toast } from "sonner";
+import axios from "axios";
 
 const DAYS: { key: string; label: string }[] = [
     { key: "MONDAY", label: "Luni" },
@@ -100,10 +102,12 @@ export default function ProfilePage() {
 
     const onSave = async () => {
         const err = validate();
+
         if (err) {
-            alert(err);
+            toast.error(err);
             return;
         }
+
         const payload: UserProfileDTO = {
             ...profile,
             sex: profile.sex && profile.sex.trim() ? profile.sex : null,
@@ -114,8 +118,17 @@ export default function ProfilePage() {
             })),
         };
 
-        await saveProfile.mutateAsync(payload);
-        alert("Profil salvat!");
+        await toast.promise(saveProfile.mutateAsync(payload), {
+            loading: "Se salvează profilul...",
+            success: "Profilul a fost salvat cu succes!",
+            error: (err: unknown) => {
+                if (axios.isAxiosError(err)) {
+                    return err.response?.data?.message || "A apărut o eroare la salvarea profilului.";
+                }
+
+                return "A apărut o eroare la salvarea profilului.";
+            },
+        });
     };
 
     return (
